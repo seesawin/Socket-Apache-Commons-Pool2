@@ -5,9 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Vector;
 
 public class SocketServer {
@@ -63,8 +61,6 @@ class SocketServer_Thread extends Thread {
 
 			boolean done = false;
 
-			List<String> respList = new ArrayList<String>();
-
 			// this thread always listen the request
 			while (!done) {
 				for (Enumeration<Thread> enumeration = threadPool.elements(); enumeration.hasMoreElements();) {
@@ -76,7 +72,6 @@ class SocketServer_Thread extends Thread {
 
 					// only handle the same thread's information
 					if (this.counter == tempCounter) {
-
 						// block this thread until it recevid new request
 						String request = br.readLine();
 
@@ -89,7 +84,10 @@ class SocketServer_Thread extends Thread {
 							pw = new PrintWriter(tempSocket.getOutputStream(), true /* autoFlush */);
 
 							// the business logic ....
-							if ("login".equals(request)) {
+							if ("bye".equals(request)) {
+								done = true;
+								break;
+							} else if ("login".equals(request)) {
 								response.append("login success!");
 							} else if ("hand".equals(request)) {
 								response.append("shake OK!___");
@@ -104,18 +102,7 @@ class SocketServer_Thread extends Thread {
 
 							String respStr = response.toString();
 							pw.println(respStr);
-							// System.out.println("response : " + respStr);
-
-							respList.add(respStr);
-
-							if (respStr.contains("frankClient_19")) {
-								for (int i = 0; i < respList.size(); i++) {
-									System.out.println("No. " + i + ", " + respList.get(i));
-								}
-								System.out.println("");
-								
-								respList.clear();
-							}
+							System.out.println("response : " + respStr);
 
 						} catch (Exception ex) {
 							System.out.println("Exception : " + ex);

@@ -91,6 +91,33 @@ public class SocketFactory extends BasePooledObjectFactory<Socket> {
 	@Override
 	public void destroyObject(PooledObject<Socket> p) throws Exception {
 		System.out.println(">>>>> SocketFactory.destroyObject...");
+
+		System.out.println(">>>>> A isClosed: " + p.getObject().isClosed());
+		System.out.println(">>>>> A isConnected: " + p.getObject().isConnected());
+
+		PrintWriter pw = null;
+		BufferedReader br = null;
+
+		pw = new PrintWriter(p.getObject().getOutputStream(), true);
+		br = new BufferedReader(new InputStreamReader(p.getObject().getInputStream()));
+
+		System.out.println("--------------- send bye to server ...");
+
+		// socket will be closed by socket server after send this key word.
+		pw.println("bye");
+
+		String respStr = br.readLine();
+		while (respStr != null) {
+			// there is nothing returned from server, actually it depends on what you design
+			System.out.println(">>>>> respStr : " + respStr);
+			respStr = br.readLine();
+		}
+
+		System.out.println("--------------- leave the server ...");
+
+		System.out.println(">>>>> B isClosed: " + p.getObject().isClosed());
+		System.out.println(">>>>> B isConnected: " + p.getObject().isConnected());
+
 		super.destroyObject(p);
 	}
 

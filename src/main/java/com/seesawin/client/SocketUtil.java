@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -28,7 +29,6 @@ public class SocketUtil {
 		BufferedReader br = null;
 
 		String respStr = "";
-		List<String> list = new ArrayList<String>();
 
 		try {
 			try {
@@ -40,20 +40,14 @@ public class SocketUtil {
 
 				pw = new PrintWriter(connectionSocket.getOutputStream(), true);
 				br = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-				for (int i = 0; i < 20; i++) {
-					pw.println(request + "_" + i);
 
-					// assume the response is just a line
-					respStr = br.readLine();
+				pw.println(request);
 
-					list.add("No. " + i + "___" + respStr);
-				}
+				// assume the response is always just a line
+				respStr = br.readLine();
+				System.out.println(">>>>> respStr : " + respStr);
 
 				System.out.println("--------------- leave the server ...");
-
-				for (int i = 0; i < list.size(); i++) {
-					System.out.println("index " + i + "___" + list.get(i));
-				}
 
 			} catch (IOException ioe) {
 				System.out.println("error: " + ioe.getMessage());
@@ -98,7 +92,7 @@ public class SocketUtil {
 
 		actives = pool.getNumActive();
 		idle = pool.getNumIdle();
-		 System.out.println("SocketUtil.getConnection after now actives : " + actives + ", idle : " + idle);
+		System.out.println("SocketUtil.getConnection after now actives : " + actives + ", idle : " + idle);
 
 		return connectionSocket;
 	}
