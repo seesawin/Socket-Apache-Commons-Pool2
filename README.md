@@ -3,7 +3,7 @@ This is a demo about socket server and client. The socket client uses Apache com
 Therefore, we can use the shared sockets in the situation of multi thread. The socket server refers to the bernardvai's example 
 and adjust somewhere of that to normally response to socket client.
 
-usage:
+usage:</br>
 step 1. execute SocketServer.java</br>
 stap 2. execute main.java
 
