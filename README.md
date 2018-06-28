@@ -4,7 +4,7 @@ Therefore, we can use the shared sockets in the situation of multi thread. The s
 and adjust somewhere of that to normally response to socket client.
 
 usage:
-step 1. execute SocketServer.java
+step 1. execute SocketServer.java</br>
 stap 2. execute main.java
 
 references:</br>
