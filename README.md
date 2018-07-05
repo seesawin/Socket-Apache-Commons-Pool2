@@ -1,7 +1,6 @@
 # Socket-Apache-Commons-Pool2
-This is a demo about socket server and client. The socket client uses Apache common pool2 to manage sockets. 
-Therefore, we can use the shared sockets in the situation of multi thread. The socket server refers to the bernardvai's example 
-and adjust somewhere of that to normally response to socket client.
+It is a demo about how to use the socket server and client. The socket client uses Apache common pool2 to manage sockets. 
+Therefore, we can use the shared sockets in the situation of multi thread. I used the bernardvai's example to create socket server and adjusted some places of it to normally response to socket client.
 
 usage:</br>
 step 1. execute SocketServer.java</br>
